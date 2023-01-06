@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AppLinuxUzbekistanApplication {
 
     public static void main(String[] args) {
+
+
         SpringApplication.run(AppLinuxUzbekistanApplication.class, args);
     }
 
