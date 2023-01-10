@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.linuxuzbekistan.dto.ArticleCreateDTO;
+import uz.linuxuzbekistan.dto.ArticleUpdateDTO;
 import uz.linuxuzbekistan.service.ArticleService;
 
 import javax.validation.Valid;
@@ -40,6 +41,19 @@ public class ArticleController {
     public ResponseEntity create(@Valid @RequestBody ArticleCreateDTO articleCreate){
 
         return articleService.create(articleCreate);
+    }
+   @PreAuthorize("hasRole('ROLE_PUBLISHER')")
+    @PutMapping("/update/{id}")
+    @ApiOperation(value = "Api for update article" ,nickname = "Article update" ,notes = "update article")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+    })
+    public ResponseEntity update(@PathVariable("id")String id,@Valid @RequestBody ArticleUpdateDTO articleUpdate){
+
+        return articleService.update(id,articleUpdate);
     }
 
 

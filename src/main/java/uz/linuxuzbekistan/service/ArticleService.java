@@ -6,11 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import uz.linuxuzbekistan.config.CustomUserDetails;
 import uz.linuxuzbekistan.dto.ArticleCreateDTO;
+import uz.linuxuzbekistan.dto.ArticleUpdateDTO;
 import uz.linuxuzbekistan.entity.ArticleEntity;
 import uz.linuxuzbekistan.entity.AttachEntity;
 import uz.linuxuzbekistan.entity.CategoryEntity;
 import uz.linuxuzbekistan.repository.ArticleRepository;
 import uz.linuxuzbekistan.util.CurrentUserUtil;
+
+import java.util.Optional;
 
 @Service
 public class ArticleService {
@@ -43,6 +46,24 @@ public class ArticleService {
         article.setImage_Id(articleCreate.getImageId());
         article.setPublisher_id(currentUser.getId());
         articleRepository.save(article);
-        return ResponseEntity.ok(article);
+        return ResponseEntity.ok("Article created successfully");
     }
+
+    public ResponseEntity update(String id, ArticleUpdateDTO articleUpdate) {
+
+        Optional<ArticleEntity> byId = articleRepository.findById(id);
+        if (byId.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        ArticleEntity article = byId.get();
+        article.setTitle(articleUpdate.getTitle());
+        article.setContent(articleUpdate.getContent());
+        article.setDescription(articleUpdate.getDescription());
+        articleRepository.save(article);
+
+        return ResponseEntity.ok("Article updated successfully");
+    }
+
+
+
 }
