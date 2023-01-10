@@ -29,7 +29,6 @@ public class AuthService {
         if (profileService.existsById(principal.getId())) {
             return ResponceDTO.sendAuthorizationToken(principal.getUsername(), bearer+ JwtUtil.encodeId(principal.getId()));
         }
-
         return ResponseEntity.badRequest().body("Phone or password is incorrect.");
     }
 }

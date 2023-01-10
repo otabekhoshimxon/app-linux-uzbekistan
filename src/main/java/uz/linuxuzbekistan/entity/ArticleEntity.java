@@ -41,14 +41,20 @@ public class ArticleEntity {
     @Column(nullable = true, name = "publish_date")
     private LocalDateTime publishDate;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "moderator_id")
+    @JoinColumn(name = "moderator_id",updatable = false,insertable = false)
     private ProfileEntity moderator;
-    @JoinColumn(name = "publisher_id")
+    private String moderator_id;
+
+    @JoinColumn(name = "publisher_id",insertable = false,updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private ProfileEntity publisher;
-    @JoinColumn(name = "image_id")
+    private String publisher_id;
+
+
+    @JoinColumn(name = "image_id",insertable = false,updatable = false)
     @OneToOne
     private AttachEntity image;
+    private String image_Id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId",insertable = false, updatable = false)

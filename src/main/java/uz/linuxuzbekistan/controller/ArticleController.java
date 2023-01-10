@@ -9,9 +9,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.linuxuzbekistan.dto.ArticleCreateDTO;
 import uz.linuxuzbekistan.service.ArticleService;
+
+import javax.validation.Valid;
 
 @RestController
 @Api(tags = "Article controller")
@@ -25,6 +28,7 @@ public class ArticleController {
     private ArticleService articleService;
 
 
+    @PreAuthorize("hasRole('ROLE_PUBLISHER')")
     @PostMapping("/create")
     @ApiOperation(value = "Api for create article" ,nickname = "Article create" ,notes = "create article")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
@@ -33,7 +37,7 @@ public class ArticleController {
             @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
             @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
     })
-    public ResponseEntity create(@RequestBody ArticleCreateDTO articleCreate){
+    public ResponseEntity create(@Valid @RequestBody ArticleCreateDTO articleCreate){
 
         return articleService.create(articleCreate);
     }
