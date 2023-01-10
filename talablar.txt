@@ -1,0 +1,12 @@
+********************Entities*********************
+1)PROFILE ENTITY
+     String id;   // uuid
+     String name ;
+     String lastName;
+     LocalDataTime createdDate=LocalDataTime.now();
+     String imageId;
+     String password;
+     String phone;
+     GeneralRole role=GeneralRole.STUDENT;
+     Boolean visible=Boolean.TRUE;
+     GeneralStatus status=GeneralStatus.ACTIVE;
