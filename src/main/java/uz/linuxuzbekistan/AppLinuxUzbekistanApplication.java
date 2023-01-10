@@ -38,6 +38,7 @@ public class AppLinuxUzbekistanApplication {
                 profile.setSurname("Hoshimxon");
                 profile.setName("Otabek");
 
+
                 profileRepository.save(profile);
             }
         };
