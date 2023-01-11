@@ -1,5 +1,5 @@
 ********************Entities*********************
-1)PROFILE ENTITY
+1)   PROFILE ENTITY
      String id;   // uuid
      String name ;
      String lastName;
@@ -10,3 +10,32 @@
      GeneralRole role=GeneralRole.STUDENT;
      Boolean visible=Boolean.TRUE;
      GeneralStatus status=GeneralStatus.ACTIVE;
+---------------------------------------------------
+2)  ATTACH ENTITY
+    String id; //UUID
+    String originName;
+    String extention;
+    Long size;
+    String path;
+    LocalDateTime createdDate = LocalDateTime.now();
+---------------------------------------------------
+3)  ATTACH_PROFILE_ENTITY
+    String id;//UUID
+    @JoinColumn(name = "profile_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    ProfileEntity profile;
+    @JoinColumn(name = "attach_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    AttachEntity attach;
+    private LocalDateTime createdDate=LocalDateTime.now();
+
+----------------------------------------------------
+4)  CATEGORY ENTITY
+     String id;//UUID
+     String key;
+     String nameUz;
+     String nameRu;
+     String nameEn;
+     Boolean visible = Boolean.TRUE;
+     LocalDateTime createdDate = LocalDateTime.now();
+----------------------------------------------------

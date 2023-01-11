@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "profile")
 public class ProfileEntity {
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -42,6 +43,8 @@ public class ProfileEntity {
 
     @Column
     private Boolean visible=Boolean.TRUE;
+
+
 
 
 
