@@ -13,6 +13,7 @@ import uz.linuxuzbekistan.entity.CategoryEntity;
 import uz.linuxuzbekistan.repository.ArticleRepository;
 import uz.linuxuzbekistan.util.CurrentUserUtil;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -69,11 +70,29 @@ public class ArticleService {
         Optional<ArticleEntity> byId = articleRepository.findById(id);
         if (byId.isEmpty()){
             return ResponseEntity.badRequest().body("Article not found");
-
         }
         ArticleEntity article = byId.get();
         article.setVisible(false);
         articleRepository.save(article);
         return ResponseEntity.ok("Article deleted successfully");
+    }
+
+
+    public ResponseEntity increaseViewCount(String id) {
+
+        ArticleEntity byId = getById(id);
+        if (Objects.isNull(byId)){
+            return ResponseEntity.badRequest().body("Article not found");
+        }
+        byId.setViewCount(byId.getViewCount()+1);
+        articleRepository.save(byId);
+        return ResponseEntity.ok("Article view count increased successfully");
+
+
+    }
+
+    public ArticleEntity getById(String id) {
+        Optional<ArticleEntity> byId = articleRepository.findById(id);
+        return byId.orElse(null);
     }
 }

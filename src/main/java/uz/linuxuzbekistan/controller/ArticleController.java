@@ -68,6 +68,19 @@ public class ArticleController {
 
         return articleService.delete(id);
     }
+    @PreAuthorize("hasRole('ROLE_PUBLISHER')")
+    @DeleteMapping("/increaseViewCount/{id}")
+    @ApiOperation(value = "Api for increase view count article" ,nickname = "Article increase view count" ,notes = "increase view count article")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+    })
+    public ResponseEntity increaseViewCount(@PathVariable("id")String id){
+
+        return articleService.increaseViewCount(id);
+    }
 
 
 }
