@@ -33,11 +33,14 @@ public class AuthController {
 
     })
 
-    public ResponseEntity login(@RequestBody AuthDTO auth){
+    public String login(@RequestBody AuthDTO auth){
 
-        ResponseEntity login = authService.login(auth);
-        return ResponseEntity.ok().body(login);
+        String login = authService.login(auth);
+        return login;
+
     }
+
+
 
 
 

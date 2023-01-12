@@ -19,7 +19,7 @@ public class AuthService {
 
     @Autowired
     private ProfileService profileService;
-    public ResponseEntity login(AuthDTO auth) {
+    public String login(AuthDTO auth) {
 
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(auth.getPhone(), auth.getPassword()));
         CustomUserDetails principal = (CustomUserDetails) authenticate.getPrincipal();
@@ -27,8 +27,9 @@ public class AuthService {
         String bearer="Bearer ";
 
         if (profileService.existsById(principal.getId())) {
-            return ResponceDTO.sendAuthorizationToken(principal.getUsername(), bearer+ JwtUtil.encodeId(principal.getId()));
+            System.out.println("principal = " + principal.getUsername());
+            return  bearer+ JwtUtil.encodeId(principal.getId());
         }
-        return ResponseEntity.badRequest().body("Phone or password is incorrect.");
+        return "Phone or password is incorrect.";
     }
 }

@@ -65,5 +65,15 @@ public class ArticleService {
     }
 
 
+    public ResponseEntity delete(String id) {
+        Optional<ArticleEntity> byId = articleRepository.findById(id);
+        if (byId.isEmpty()){
+            return ResponseEntity.badRequest().body("Article not found");
 
+        }
+        ArticleEntity article = byId.get();
+        article.setVisible(false);
+        articleRepository.save(article);
+        return ResponseEntity.ok("Article deleted successfully");
+    }
 }

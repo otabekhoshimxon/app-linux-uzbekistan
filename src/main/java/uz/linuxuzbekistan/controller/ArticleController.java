@@ -55,6 +55,19 @@ public class ArticleController {
 
         return articleService.update(id,articleUpdate);
     }
+  @PreAuthorize("hasRole('ROLE_PUBLISHER')")
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "Api for delete article" ,nickname = "Article delete" ,notes = "delete article")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+    })
+    public ResponseEntity delete(@PathVariable("id")String id){
+
+        return articleService.delete(id);
+    }
 
 
 }
