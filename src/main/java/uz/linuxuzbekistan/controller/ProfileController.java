@@ -8,12 +8,10 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uz.linuxuzbekistan.dto.ProfileCreateDTO;
 import uz.linuxuzbekistan.enums.GeneralRole;
 import uz.linuxuzbekistan.service.ProfileService;
@@ -57,6 +55,23 @@ public class ProfileController {
     public ResponseEntity createPublisher (@RequestBody ProfileCreateDTO create){
 
          return profileService.create(create,GeneralRole.PUBLISHER);
+    }
+
+
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/getAll")
+    @ApiOperation(value = "Api for get all " ,nickname = "Get all profiles API" ,notes = "Get all profiles")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "MUVAFFAQQIYATLI"),
+            @ApiResponse(code = 403, message = "RUXSAT YO'Q "),
+            @ApiResponse(code = 201, message = "YARATILDI "),
+            @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
+            @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
+    })
+    public ResponseEntity getAll (@RequestParam(value = "page" ,defaultValue = "0") int page, @RequestParam(value = "size",defaultValue = "4")int size){
+
+         return profileService.getAll(page,size);
     }
 
 
