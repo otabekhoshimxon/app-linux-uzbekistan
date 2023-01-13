@@ -36,7 +36,7 @@ public class CategoryController {
             @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
             @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
     })
-    public ResponseEntity getAll (@Valid @RequestBody CategoryCreateDTO categoryCreate){
+    public ResponseEntity create (@Valid @RequestBody CategoryCreateDTO categoryCreate){
 
         return categoryService.create(categoryCreate);
     }
@@ -52,7 +52,7 @@ public class CategoryController {
             @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
             @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
     })
-    public ResponseEntity getAll (@PathVariable("id") String id,@Valid @RequestBody CategoryUpdateDTO categoryUpdate){
+    public ResponseEntity update (@PathVariable("id") String id,@Valid @RequestBody CategoryUpdateDTO categoryUpdate){
 
         return categoryService.update(id,categoryUpdate);
     }
