@@ -8,13 +8,17 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.linuxuzbekistan.dto.ProfileCreateDTO;
+import uz.linuxuzbekistan.dto.ProfileDTO;
 import uz.linuxuzbekistan.enums.GeneralRole;
 import uz.linuxuzbekistan.service.ProfileService;
+
+import java.util.List;
 
 @RestController
 @Api(tags = "Profile controller")

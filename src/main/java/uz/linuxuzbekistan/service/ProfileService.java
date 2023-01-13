@@ -12,6 +12,7 @@ import uz.linuxuzbekistan.enums.GeneralRole;
 import uz.linuxuzbekistan.repository.ProfileRepository;
 import uz.linuxuzbekistan.util.MD5PasswordGenerator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +44,7 @@ public class ProfileService {
 
     }
 
-    public ResponseEntity getAll(Integer page,Integer size) {
+    public ResponseEntity getAll(Integer page, Integer size) {
         Sort sort =Sort.by("name");
         Pageable pageable= PageRequest.of(page,size,sort);
         Page<ProfileEntity> all = profileRepository.findAll(pageable);

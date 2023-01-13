@@ -41,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers("/api/v1/auth/*").permitAll();
+                .antMatchers("/api/v1/auth/*").permitAll()
+                .antMatchers("/api/v1/profile/getAll").permitAll();
 
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
