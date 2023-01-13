@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.linuxuzbekistan.dto.CategoryCreateDTO;
+import uz.linuxuzbekistan.dto.CategoryUpdateDTO;
 import uz.linuxuzbekistan.service.CategoryService;
 
 import javax.validation.Valid;
@@ -51,9 +52,9 @@ public class CategoryController {
             @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
             @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
     })
-    public ResponseEntity getAll (@PathVariable("id") String id,@Valid @RequestBody CategoryCreateDTO categoryCreate){
+    public ResponseEntity getAll (@PathVariable("id") String id,@Valid @RequestBody CategoryUpdateDTO categoryUpdate){
 
-        return categoryService.create(categoryCreate);
+        return categoryService.update(id,categoryUpdate);
     }
 
 
