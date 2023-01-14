@@ -85,6 +85,20 @@ public class CategoryController {
 
         return categoryService.getAllCategories();
     }
+  @PreAuthorize("permitAll()")
+    @GetMapping("/getByKey/{key}")
+    @ApiOperation(value = "Api for get  CATEGORY by KEY" ,nickname = "GET  category by KEY API" ,notes = "Get category by KEY")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "MUVAFFAQQIYATLI"),
+            @ApiResponse(code = 403, message = "RUXSAT YO'Q "),
+            @ApiResponse(code = 201, message = "YARATILDI "),
+            @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
+            @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
+    })
+    public ResponseEntity getByKey (@PathVariable("key") String key){
+
+        return categoryService.getByKey(key);
+    }
 
 
 

@@ -78,6 +78,7 @@ public class CategoryService {
         allCategories.forEach(category -> {
             CategoryDTO categoryDTO=new CategoryDTO();
             categoryDTO.setId(category.getId());
+            categoryDTO.setKey(category.getKey());
             categoryDTO.setNameEn(category.getNameEn());
             categoryDTO.setNameUz(category.getNameUz());
             categoryDTO.setNameRu(category.getNameRu());
@@ -85,5 +86,20 @@ public class CategoryService {
         });
         return ResponseEntity.ok(list);
 
+    }
+
+    public ResponseEntity getByKey(String key) {
+        Optional<CategoryEntity> byKey = categoryRepository.findByKey(key);
+        if (byKey.isEmpty()){
+            return ResponseEntity.badRequest().body("Category not found");
+        }
+
+        CategoryEntity category = byKey.get();
+        CategoryDTO categoryDTO=new CategoryDTO();
+        categoryDTO.setId(category.getId());
+        categoryDTO.setNameEn(category.getNameEn());
+        categoryDTO.setNameUz(category.getNameUz());
+        categoryDTO.setNameRu(category.getNameRu());
+        return ResponseEntity.ok(categoryDTO);
     }
 }
