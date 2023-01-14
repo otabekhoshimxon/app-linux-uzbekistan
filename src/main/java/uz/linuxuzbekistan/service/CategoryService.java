@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import uz.linuxuzbekistan.dto.CategoryCreateDTO;
+import uz.linuxuzbekistan.dto.CategoryDTO;
 import uz.linuxuzbekistan.dto.CategoryUpdateDTO;
 import uz.linuxuzbekistan.entity.CategoryEntity;
 import uz.linuxuzbekistan.repository.CategoryRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,5 +64,26 @@ public class CategoryService {
         category.setVisible(false);
         categoryRepository.save(category);
         return ResponseEntity.ok("Category deleted");
+    }
+
+    public ResponseEntity getAllCategories() {
+
+
+        List<CategoryEntity> allCategories = categoryRepository.getAllCategories();
+        if (allCategories.isEmpty()){
+            return ResponseEntity.badRequest().body("No categories found");
+        }
+        List<CategoryDTO> list=new ArrayList<>();
+
+        allCategories.forEach(category -> {
+            CategoryDTO categoryDTO=new CategoryDTO();
+            categoryDTO.setId(category.getId());
+            categoryDTO.setNameEn(category.getNameEn());
+            categoryDTO.setNameUz(category.getNameUz());
+            categoryDTO.setNameRu(category.getNameRu());
+            list.add(categoryDTO);
+        });
+        return ResponseEntity.ok(list);
+
     }
 }
