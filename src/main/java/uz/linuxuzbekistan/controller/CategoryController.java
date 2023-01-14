@@ -44,7 +44,7 @@ public class CategoryController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/update/{id}")
-    @ApiOperation(value = "Api for create category" ,nickname = "Create category API" ,notes = "Create category")
+    @ApiOperation(value = "Api for update category" ,nickname = "Update category API" ,notes = "Update category")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "MUVAFFAQQIYATLI"),
             @ApiResponse(code = 403, message = "RUXSAT YO'Q "),
@@ -55,6 +55,21 @@ public class CategoryController {
     public ResponseEntity update (@PathVariable("id") String id,@Valid @RequestBody CategoryUpdateDTO categoryUpdate){
 
         return categoryService.update(id,categoryUpdate);
+    }
+
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/delete/{id}")
+    @ApiOperation(value = "Api for delete category" ,nickname = "Delete category API" ,notes = "Delete category")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "MUVAFFAQQIYATLI"),
+            @ApiResponse(code = 403, message = "RUXSAT YO'Q "),
+            @ApiResponse(code = 201, message = "YARATILDI "),
+            @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
+            @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
+    })
+    public ResponseEntity delete (@PathVariable("id") String id){
+
+        return categoryService.delete(id);
     }
 
 

@@ -49,4 +49,17 @@ public class CategoryService {
         categoryRepository.save(category);
         return ResponseEntity.ok("Category updated");
     }
+
+    public ResponseEntity delete(String id) {
+
+        Optional<CategoryEntity> byId = categoryRepository.findById(id);
+        if (byId.isEmpty()){
+            return ResponseEntity.ok("Category not found");
+
+        }
+        CategoryEntity category = byId.get();
+        category.setVisible(false);
+        categoryRepository.save(category);
+        return ResponseEntity.ok("Category deleted");
+    }
 }
