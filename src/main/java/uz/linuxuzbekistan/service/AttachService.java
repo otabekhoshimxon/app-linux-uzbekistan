@@ -78,7 +78,7 @@ public class AttachService {
         int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int day = Calendar.getInstance().get(Calendar.DATE);
 
-        return year + "/" + month + "/" + day; // 2022/04/23
+        return year + "/" + month + "/" + day;
     }
 
     public String getExtension(String fileName) {
