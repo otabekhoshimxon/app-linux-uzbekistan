@@ -1,7 +1,7 @@
 package uz.linuxuzbekistan.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,10 +12,8 @@ import uz.linuxuzbekistan.enums.GeneralRole;
 import uz.linuxuzbekistan.repository.ProfileRepository;
 import uz.linuxuzbekistan.util.MD5PasswordGenerator;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProfileService {
@@ -58,6 +56,7 @@ public class ProfileService {
         return ResponseEntity.ok(new PageImpl<>(list,pageable,all.getTotalElements()));
     }
 
+    @Cacheable(value = "profileCache", key = "#id")
     public ProfileDTO getProfile(ProfileEntity profile){
         ProfileDTO profileDTO=new ProfileDTO();
         profileDTO.setName(profile.getName());

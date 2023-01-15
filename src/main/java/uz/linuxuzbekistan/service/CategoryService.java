@@ -1,6 +1,8 @@
 package uz.linuxuzbekistan.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import uz.linuxuzbekistan.dto.CategoryCreateDTO;
@@ -8,7 +10,6 @@ import uz.linuxuzbekistan.dto.CategoryDTO;
 import uz.linuxuzbekistan.dto.CategoryUpdateDTO;
 import uz.linuxuzbekistan.entity.CategoryEntity;
 import uz.linuxuzbekistan.repository.CategoryRepository;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +39,7 @@ public class CategoryService {
         categoryRepository.save(category);
         return ResponseEntity.ok("Category created");
     }
-
+    @CachePut(value = "categoryCache", key = "#id")
     public ResponseEntity update(String id, CategoryUpdateDTO categoryUpdate) {
 
         Optional<CategoryEntity> byId = categoryRepository.findById(id);
@@ -87,7 +88,7 @@ public class CategoryService {
         return ResponseEntity.ok(list);
 
     }
-
+    @Cacheable(value = "categoryCache", key = "#key")
     public ResponseEntity getByKey(String key) {
         Optional<CategoryEntity> byKey = categoryRepository.findByKey(key);
         if (byKey.isEmpty()){
