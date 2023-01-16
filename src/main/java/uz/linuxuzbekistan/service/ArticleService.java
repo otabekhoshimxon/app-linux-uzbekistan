@@ -2,6 +2,10 @@ package uz.linuxuzbekistan.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import uz.linuxuzbekistan.config.CustomUserDetails;
@@ -14,6 +18,8 @@ import uz.linuxuzbekistan.entity.CategoryEntity;
 import uz.linuxuzbekistan.repository.ArticleRepository;
 import uz.linuxuzbekistan.util.CurrentUserUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -95,22 +101,45 @@ public class ArticleService {
         if (byId == null) {
             return ResponseEntity.badRequest().body("Article not found");
         }
-        ArticleDTO articleDTO = new ArticleDTO();
-        articleDTO.setId(byId.getId());
-        articleDTO.setTitle(byId.getTitle());
-        articleDTO.setCreatedDate(byId.getCreatedDate());
-        articleDTO.setContent(byId.getContent());
-        articleDTO.setVisible(byId.getVisible());
-        articleDTO.setCategoryId(byId.getCategoryId());
-        articleDTO.setViewCount(byId.getViewCount());
-        articleDTO.setStatus(byId.getStatus());
-        articleDTO.setDescription(byId.getDescription());
-        articleDTO.setImage_Id(byId.getImage_Id());
-        return ResponseEntity.ok(articleDTO);
+        return ResponseEntity.ok(getArticleDTO(byId));
     }
 
     public ArticleEntity getById(String id) {
         Optional<ArticleEntity> byId = articleRepository.findById(id);
         return byId.orElse(null);
+    }
+
+
+
+    public ArticleDTO getArticleDTO(ArticleEntity article){
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setId(article.getId());
+        articleDTO.setTitle(article.getTitle());
+        articleDTO.setCreatedDate(article.getCreatedDate());
+        articleDTO.setContent(article.getContent());
+        articleDTO.setVisible(article.getVisible());
+        articleDTO.setCategoryId(article.getCategoryId());
+        articleDTO.setViewCount(article.getViewCount());
+        articleDTO.setStatus(article.getStatus());
+        articleDTO.setDescription(article.getDescription());
+        articleDTO.setImage_Id(article.getImage_Id());
+        return articleDTO;
+    }
+
+    public ResponseEntity getAll(int page, int size) {
+
+        Pageable pageable= PageRequest.of(page, size);
+        Page<ArticleEntity> all = articleRepository.findAll(pageable);
+
+        if (!all.hasContent()) {
+            return ResponseEntity.noContent().build();
+
+        }
+        List<ArticleDTO> articleDTOS = new ArrayList<>();
+        all.forEach(article -> {
+            articleDTOS.add(getArticleDTO(article));
+        });
+        return ResponseEntity.ok(new PageImpl<>(articleDTOS, pageable, all.getTotalElements()));
+
     }
 }

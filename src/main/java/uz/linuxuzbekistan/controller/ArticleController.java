@@ -96,6 +96,21 @@ public class ArticleController {
         return articleService.getArticleById(id);
     }
 
+    @GetMapping("/getAll")
+    @ApiOperation(value = "Api for get ALL articles with pagination" ,nickname = "GET articles " ,notes = "Get articles")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+    })
+    public ResponseEntity getAllArticles(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                         @RequestParam(value = "size", required = false, defaultValue = "5") int size){
+
+        return articleService.getAll(page,size);
+    }
+
 
 }
 
