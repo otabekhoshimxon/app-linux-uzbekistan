@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import uz.linuxuzbekistan.entity.ProfileEntity;
 import uz.linuxuzbekistan.enums.GeneralRole;
@@ -11,13 +12,10 @@ import uz.linuxuzbekistan.repository.ProfileRepository;
 import uz.linuxuzbekistan.util.MD5PasswordGenerator;
 
 @SpringBootApplication
+@EnableCaching
 public class AppLinuxUzbekistanApplication {
-
-
     @Autowired
     private ProfileRepository profileRepository;
-
-
 
     public static void main(String[] args) {
 

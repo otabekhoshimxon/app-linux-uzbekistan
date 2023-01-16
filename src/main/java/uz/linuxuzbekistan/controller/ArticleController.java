@@ -82,6 +82,20 @@ public class ArticleController {
         return articleService.increaseViewCount(id);
     }
 
+    @GetMapping("/get/{id}")
+    @ApiOperation(value = "Api for get article by ID" ,nickname = "GET article by ID" ,notes = "Get article")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+    })
+    public ResponseEntity getArticleById(@PathVariable("id")String id){
+
+        return articleService.getArticleById(id);
+    }
+
 
 }
 

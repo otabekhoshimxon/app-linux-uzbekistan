@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import uz.linuxuzbekistan.config.CustomUserDetails;
 import uz.linuxuzbekistan.dto.ArticleCreateDTO;
+import uz.linuxuzbekistan.dto.ArticleDTO;
 import uz.linuxuzbekistan.dto.ArticleUpdateDTO;
 import uz.linuxuzbekistan.entity.ArticleEntity;
 import uz.linuxuzbekistan.entity.AttachEntity;
@@ -79,16 +80,33 @@ public class ArticleService {
 
 
     public ResponseEntity increaseViewCount(String id) {
-
         ArticleEntity byId = getById(id);
-        if (Objects.isNull(byId)){
+        if (Objects.isNull(byId)) {
             return ResponseEntity.badRequest().body("Article not found");
         }
-        byId.setViewCount(byId.getViewCount()+1);
+        byId.setViewCount(byId.getViewCount() + 1);
         articleRepository.save(byId);
         return ResponseEntity.ok("Article view count increased successfully");
+    }
 
 
+    public ResponseEntity getArticleById(String id) {
+        ArticleEntity byId = getById(id);
+        if (byId == null) {
+            return ResponseEntity.badRequest().body("Article not found");
+        }
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setId(byId.getId());
+        articleDTO.setTitle(byId.getTitle());
+        articleDTO.setCreatedDate(byId.getCreatedDate());
+        articleDTO.setContent(byId.getContent());
+        articleDTO.setVisible(byId.getVisible());
+        articleDTO.setCategoryId(byId.getCategoryId());
+        articleDTO.setViewCount(byId.getViewCount());
+        articleDTO.setStatus(byId.getStatus());
+        articleDTO.setDescription(byId.getDescription());
+        articleDTO.setImage_Id(byId.getImage_Id());
+        return ResponseEntity.ok(articleDTO);
     }
 
     public ArticleEntity getById(String id) {

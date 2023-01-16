@@ -33,7 +33,7 @@ public class ProfileController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create/moderator")
-    @ApiOperation(value = "Api for create MODERATOR" ,nickname = "Create MODERATOR API" ,notes = "Create MODERATOR")
+    @ApiOperation(value = "Api for create MODERATOR" ,nickname = "Create MODERATOR API" ,notes = "Create MODERATOR",httpMethod = "POST",response = ResponseEntity.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "MUVAFFAQQIYATLI"),
             @ApiResponse(code = 403, message = "RUXSAT YO'Q "),
