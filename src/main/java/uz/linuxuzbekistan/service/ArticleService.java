@@ -110,22 +110,6 @@ public class ArticleService {
     }
 
 
-
-    public ArticleDTO getArticleDTO(ArticleEntity article){
-        ArticleDTO articleDTO = new ArticleDTO();
-        articleDTO.setId(article.getId());
-        articleDTO.setTitle(article.getTitle());
-        articleDTO.setCreatedDate(article.getCreatedDate());
-        articleDTO.setContent(article.getContent());
-        articleDTO.setVisible(article.getVisible());
-        articleDTO.setCategoryId(article.getCategoryId());
-        articleDTO.setViewCount(article.getViewCount());
-        articleDTO.setStatus(article.getStatus());
-        articleDTO.setDescription(article.getDescription());
-        articleDTO.setImage_Id(article.getImage_Id());
-        return articleDTO;
-    }
-
     public ResponseEntity getAll(int page, int size) {
 
         Pageable pageable= PageRequest.of(page, size);
@@ -141,5 +125,40 @@ public class ArticleService {
         });
         return ResponseEntity.ok(new PageImpl<>(articleDTOS, pageable, all.getTotalElements()));
 
+    }
+
+
+
+    public ResponseEntity getArticlesByCategoryId(String id, int page, int size) {
+
+        Pageable pageable=PageRequest.of(page,size);
+        Page<ArticleEntity> data = articleRepository.getArticlesByCategoryId(id, pageable);
+        if (data.isEmpty()){
+            return ResponseEntity.badRequest().body("Not found articles");
+        }
+        List<ArticleDTO> articles=new ArrayList<>();
+
+
+        data.forEach(articleEntity -> {
+            articles.add(getArticleDTO(articleEntity));
+        });
+
+        return ResponseEntity.ok(new PageImpl<>(articles,pageable, data.getTotalElements()));
+    }
+
+
+    public ArticleDTO getArticleDTO(ArticleEntity article){
+        ArticleDTO articleDTO = new ArticleDTO();
+        articleDTO.setId(article.getId());
+        articleDTO.setTitle(article.getTitle());
+        articleDTO.setCreatedDate(article.getCreatedDate());
+        articleDTO.setContent(article.getContent());
+        articleDTO.setVisible(article.getVisible());
+        articleDTO.setCategoryId(article.getCategoryId());
+        articleDTO.setViewCount(article.getViewCount());
+        articleDTO.setStatus(article.getStatus());
+        articleDTO.setDescription(article.getDescription());
+        articleDTO.setImage_Id(article.getImage_Id());
+        return articleDTO;
     }
 }

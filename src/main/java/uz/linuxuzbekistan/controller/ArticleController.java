@@ -110,6 +110,20 @@ public class ArticleController {
 
         return articleService.getAll(page,size);
     }
+    @GetMapping("/getByCategory/{id}")
+    @ApiOperation(value = "Api for get  articles by category ID with pagination" ,nickname = "GET articles " ,notes = "Get articles")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+    })
+    public ResponseEntity getByCategoryId(@PathVariable("id") String id,@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+                                          @RequestParam(value = "size", required = false, defaultValue = "5") int size){
+
+        return articleService.getArticlesByCategoryId(id,page,size);
+    }
 
 
 }

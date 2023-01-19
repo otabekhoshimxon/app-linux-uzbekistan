@@ -28,7 +28,7 @@ public class CategoryService {
     public ResponseEntity create(CategoryCreateDTO categoryCreate) {
 
         Optional<CategoryEntity> byKey = categoryRepository.findByKey(categoryCreate.getKey());
-        if (byKey.isEmpty()){
+        if (!byKey.isEmpty()){
             return ResponseEntity.badRequest().body("Category key already exists");
         }
         CategoryEntity category = new CategoryEntity();

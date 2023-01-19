@@ -30,10 +30,9 @@ public class ProfileController {
     private ProfileService profileService;
 
 
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create/moderator")
-    @ApiOperation(value = "Api for create MODERATOR" ,nickname = "Create MODERATOR API" ,notes = "Create MODERATOR",httpMethod = "POST",response = ResponseEntity.class)
+    @ApiOperation(value = "Api for create MODERATOR", nickname = "Create MODERATOR API", notes = "Create MODERATOR", httpMethod = "POST", response = ResponseEntity.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "MUVAFFAQQIYATLI"),
             @ApiResponse(code = 403, message = "RUXSAT YO'Q "),
@@ -41,14 +40,14 @@ public class ProfileController {
             @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
             @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
     })
-    public ResponseEntity createModerator (@RequestBody ProfileCreateDTO create){
+    public ResponseEntity createModerator(@RequestBody ProfileCreateDTO create) {
 
-         return profileService.create(create, GeneralRole.MODERATOR);
+        return profileService.create(create, GeneralRole.MODERATOR);
     }
 
- @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create/publisher")
-    @ApiOperation(value = "Api for create PUBLISHER" ,nickname = "Create PUBLISHER API" ,notes = "Create PUBLISHER")
+    @ApiOperation(value = "Api for create PUBLISHER", nickname = "Create PUBLISHER API", notes = "Create PUBLISHER")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "MUVAFFAQQIYATLI"),
             @ApiResponse(code = 403, message = "RUXSAT YO'Q "),
@@ -56,16 +55,15 @@ public class ProfileController {
             @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
             @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
     })
-    public ResponseEntity createPublisher (@RequestBody ProfileCreateDTO create){
+    public ResponseEntity createPublisher(@RequestBody ProfileCreateDTO create) {
 
-         return profileService.create(create,GeneralRole.PUBLISHER);
+        return profileService.create(create, GeneralRole.PUBLISHER);
     }
-
 
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getAll")
-    @ApiOperation(value = "Api for get all " ,nickname = "Get all profiles API" ,notes = "Get all profiles")
+    @ApiOperation(value = "Api for get all ", nickname = "Get all profiles API", notes = "Get all profiles")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "MUVAFFAQQIYATLI"),
             @ApiResponse(code = 403, message = "RUXSAT YO'Q "),
@@ -73,12 +71,10 @@ public class ProfileController {
             @ApiResponse(code = 401, message = "AVTORIZATSIYADAN O'TILMAGAN "),
             @ApiResponse(code = 404, message = "MAVJUD BO'LMAGAN SAHIFA ")
     })
-    public ResponseEntity getAll (@RequestParam(value = "page" ,defaultValue = "0") int page, @RequestParam(value = "size",defaultValue = "4")int size){
+    public ResponseEntity getAll(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "4") int size) {
 
-         return profileService.getAll(page,size);
+        return profileService.getAll(page, size);
     }
-
-
 
 
 }
