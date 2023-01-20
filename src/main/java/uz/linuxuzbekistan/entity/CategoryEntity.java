@@ -35,12 +35,6 @@ public class CategoryEntity {
     @Column(nullable = false, name = "name_uz")
     private String nameUz;
 
-    @Column(nullable = false, name = "name_ru")
-    private String nameRu;
-
-    @Column(nullable = false, name = "name_en")
-    private String nameEn;
-
     @Column(nullable = false)
     private Boolean visible = Boolean.TRUE;
 

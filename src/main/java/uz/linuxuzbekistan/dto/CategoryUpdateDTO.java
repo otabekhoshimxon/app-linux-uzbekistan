@@ -8,8 +8,6 @@ public class CategoryUpdateDTO {
 
 
     private String nameUz;
-    private String nameRu;
-    private String nameEn;
 
 
 }

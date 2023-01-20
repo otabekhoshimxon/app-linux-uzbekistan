@@ -33,9 +33,7 @@ public class CategoryService {
         }
         CategoryEntity category = new CategoryEntity();
         category.setKey(categoryCreate.getKey());
-        category.setNameEn(categoryCreate.getNameEn());
         category.setNameUz(categoryCreate.getNameUz());
-        category.setNameRu(categoryCreate.getNameRu());
         categoryRepository.save(category);
         return ResponseEntity.ok("Category created");
     }
@@ -47,9 +45,7 @@ public class CategoryService {
             return ResponseEntity.badRequest().body("Category does not exist");
         }
         CategoryEntity category = new CategoryEntity();
-        category.setNameEn(categoryUpdate.getNameEn());
         category.setNameUz(categoryUpdate.getNameUz());
-        category.setNameRu(categoryUpdate.getNameRu());
         categoryRepository.save(category);
         return ResponseEntity.ok("Category updated");
     }
@@ -71,20 +67,24 @@ public class CategoryService {
 
 
         List<CategoryEntity> allCategories = categoryRepository.getAllCategories();
-        if (allCategories.isEmpty()){
-            return ResponseEntity.badRequest().body("No categories found");
-        }
+
         List<CategoryDTO> list=new ArrayList<>();
 
         allCategories.forEach(category -> {
-            CategoryDTO categoryDTO=new CategoryDTO();
-            categoryDTO.setId(category.getId());
-            categoryDTO.setKey(category.getKey());
-            categoryDTO.setNameEn(category.getNameEn());
-            categoryDTO.setNameUz(category.getNameUz());
-            categoryDTO.setNameRu(category.getNameRu());
-            list.add(categoryDTO);
+            if (category.getVisible()){
+                CategoryDTO categoryDTO=new CategoryDTO();
+                categoryDTO.setId(category.getId());
+                categoryDTO.setKey(category.getKey());
+                categoryDTO.setNameUz(category.getNameUz());
+                list.add(categoryDTO);
+            }
         });
+
+
+        if (list.isEmpty()){
+            return ResponseEntity.badRequest().body("Categories not found");
+        }
+
         return ResponseEntity.ok(list);
 
     }
@@ -98,9 +98,8 @@ public class CategoryService {
         CategoryEntity category = byKey.get();
         CategoryDTO categoryDTO=new CategoryDTO();
         categoryDTO.setId(category.getId());
-        categoryDTO.setNameEn(category.getNameEn());
         categoryDTO.setNameUz(category.getNameUz());
-        categoryDTO.setNameRu(category.getNameRu());
+
         return ResponseEntity.ok(categoryDTO);
     }
 }
