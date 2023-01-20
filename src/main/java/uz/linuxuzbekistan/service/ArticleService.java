@@ -1,6 +1,7 @@
 package uz.linuxuzbekistan.service;
 
 
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -162,10 +163,10 @@ public class ArticleService {
         return articleDTO;
     }
 
-    public ResponseEntity getViewCountById(String id) {
+    public ResponseEntity<Integer> getViewCountById(String id) {
         ArticleEntity byId = getById(id);
         if (byId==null){
-            return ResponseEntity.badRequest().body("Article not found");
+            return ResponseEntity.badRequest().body(-1);
         }
         return ResponseEntity.ok(byId.getViewCount());
     }

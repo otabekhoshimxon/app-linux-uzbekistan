@@ -90,15 +90,10 @@ public class ArticleController {
             @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
             @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
     })
-    public ResponseEntity getViewCount(@PathVariable("id")String id){
+    public ResponseEntity<Integer> getViewCount(@PathVariable("id")String id){
 
         return articleService.getViewCountById(id);
     }
-
-
-
-
-
     @GetMapping("/get/{id}")
     @ApiOperation(value = "Api for get article by ID" ,nickname = "GET article by ID" ,notes = "Get article")
     @ApiResponses(value = {
