@@ -161,4 +161,12 @@ public class ArticleService {
         articleDTO.setImage_Id(article.getImage_Id());
         return articleDTO;
     }
+
+    public ResponseEntity getViewCountById(String id) {
+        ArticleEntity byId = getById(id);
+        if (byId==null){
+            return ResponseEntity.badRequest().body("Article not found");
+        }
+        return ResponseEntity.ok(byId.getViewCount());
+    }
 }

@@ -82,6 +82,23 @@ public class ArticleController {
         return articleService.increaseViewCount(id);
     }
 
+    @GetMapping("/getViewCount/{id}")
+    @ApiOperation(value = "Api for get view count article" ,nickname = "Article get view count" ,notes = "get view count article")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+    })
+    public ResponseEntity getViewCount(@PathVariable("id")String id){
+
+        return articleService.getViewCountById(id);
+    }
+
+
+
+
+
     @GetMapping("/get/{id}")
     @ApiOperation(value = "Api for get article by ID" ,nickname = "GET article by ID" ,notes = "Get article")
     @ApiResponses(value = {
