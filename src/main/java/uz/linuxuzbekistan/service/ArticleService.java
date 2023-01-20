@@ -170,4 +170,23 @@ public class ArticleService {
         }
         return ResponseEntity.ok(byId.getViewCount());
     }
+
+    public ResponseEntity get4ArticleByViewCount() {
+
+        List<ArticleEntity> data = articleRepository.get4ArticlesByViewCount();
+
+        if (data.isEmpty()){
+            return ResponseEntity.badRequest().body("Articles not found");
+        }
+
+
+        List<ArticleDTO> list=new ArrayList<>();
+        data.forEach(articleEntity ->
+        {
+            list.add(getArticleDTO(articleEntity));
+        });
+
+        return ResponseEntity.ok(list);
+
+    }
 }

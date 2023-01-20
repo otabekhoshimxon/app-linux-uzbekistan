@@ -13,4 +13,7 @@ public interface ArticleRepository extends PagingAndSortingRepository<ArticleEnt
 
     @Query(value = "select * from article where category_id=:iid and visible=true",nativeQuery = true)
     Page<ArticleEntity> getArticlesByCategoryId(@Param("iid") String id, Pageable pageable);
+
+    @Query(value = " select * from article where visible=true order by view_count limit 4",nativeQuery = true)
+    List<ArticleEntity> get4ArticlesByViewCount();
 }

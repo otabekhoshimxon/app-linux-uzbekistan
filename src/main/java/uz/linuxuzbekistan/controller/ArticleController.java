@@ -136,6 +136,19 @@ public class ArticleController {
 
         return articleService.getArticlesByCategoryId(id,page,size);
     }
+    @GetMapping("/get4ArticlesByViewCount")
+    @ApiOperation(value = "Api for get  articles by view count" ,nickname = "GET articles by view count " ,notes = "Get articles")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+    })
+    public ResponseEntity get4ArticleByViewCount(){
+
+        return articleService.get4ArticleByViewCount();
+    }
 
 
 }
