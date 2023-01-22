@@ -141,7 +141,10 @@ public class ArticleService {
 
 
         data.forEach(articleEntity -> {
-            articles.add(getArticleDTO(articleEntity));
+            if (articleEntity.getVisible()){
+                articles.add(getArticleDTO(articleEntity));
+            }
+
         });
 
         return ResponseEntity.ok(new PageImpl<>(articles,pageable, data.getTotalElements()));

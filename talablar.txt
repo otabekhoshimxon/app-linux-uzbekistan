@@ -21,11 +21,7 @@
 ---------------------------------------------------
 3)  ATTACH_PROFILE_ENTITY
     String id;//UUID
-    @JoinColumn(name = "profile_id")
-    @ManyToOne(fetch = FetchType.LAZY)
     ProfileEntity profile;
-    @JoinColumn(name = "attach_id")
-    @ManyToOne(fetch = FetchType.LAZY)
     AttachEntity attach;
     private LocalDateTime createdDate=LocalDateTime.now();
 
@@ -34,8 +30,11 @@
      String id;//UUID
      String key;
      String nameUz;
-     String nameRu;
-     String nameEn;
      Boolean visible = Boolean.TRUE;
      LocalDateTime createdDate = LocalDateTime.now();
 ----------------------------------------------------
+
+
+
+
+

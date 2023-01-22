@@ -10,6 +10,7 @@ import uz.linuxuzbekistan.entity.AttachEntity;
 import uz.linuxuzbekistan.repository.AttachRepository;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
@@ -44,9 +45,11 @@ public class AttachService {
         }
 
         try{
-            byte[] bytes = multipartFile.getBytes();
 
-            Path path = Paths.get( attachFolder+ pathFolder);
+
+            byte[] bytes = multipartFile.getBytes();
+            Path path = Paths.get( attachFolder+ pathFolder+"/"+multipartFilename);
+            Files.write(path, bytes);
 
             AttachEntity attach=new AttachEntity();
             attach.setSize(multipartFile.getSize());

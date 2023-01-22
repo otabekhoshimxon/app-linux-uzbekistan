@@ -68,7 +68,6 @@ public class ArticleController {
 
         return articleService.delete(id);
     }
-    @PreAuthorize("hasRole('ROLE_PUBLISHER')")
     @PutMapping("/increaseViewCount/{id}")
     @ApiOperation(value = "Api for increase view count article" ,nickname = "Article increase view count" ,notes = "increase view count article")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
