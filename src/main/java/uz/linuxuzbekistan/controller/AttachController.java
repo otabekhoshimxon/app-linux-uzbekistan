@@ -9,10 +9,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import uz.linuxuzbekistan.dto.AttachDTO;
 import uz.linuxuzbekistan.service.AttachService;
@@ -28,6 +26,9 @@ public class AttachController {
     private AttachService attachService;
 
 
+
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/upload")
     @ApiOperation(value = "Api for upload file" ,nickname = "Upload FILE API" ,notes = "upload file")
     @ApiResponses(value = {
@@ -42,6 +43,20 @@ public class AttachController {
 
         AttachDTO upload = attachService.upload(file);
         return ResponseEntity.ok(upload);
+    }
+
+    @GetMapping("/download/{id}")
+    @ApiOperation(value = "Api for upload file" ,nickname = "Upload FILE API" ,notes = "upload file")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Muvaffaqqiyatli"),
+            @ApiResponse(code = 403, message = "Ruxsat yo'q "),
+            @ApiResponse(code = 201, message = "Yaratildi "),
+            @ApiResponse(code = 401, message = "Avtorizatsiyadan o'tilmagan "),
+            @ApiResponse(code = 404, message = "Mavjud bo'lmagan API ")
+
+    })
+    public ResponseEntity download(@PathVariable("id") String id) {
+        return attachService.download(id);
     }
 
 

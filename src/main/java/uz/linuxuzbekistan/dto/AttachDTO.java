@@ -6,7 +6,7 @@ import lombok.Data;
 public class AttachDTO {
 
 
-    private String id;
+
     private String url;
 
 
