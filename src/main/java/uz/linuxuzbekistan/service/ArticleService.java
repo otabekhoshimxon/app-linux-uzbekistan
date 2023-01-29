@@ -98,10 +98,12 @@ public class ArticleService {
 
 
     public ResponseEntity getArticleById(String id) {
+
         ArticleEntity byId = getById(id);
         if (byId == null) {
             return ResponseEntity.badRequest().body("Article not found");
         }
+        increaseViewCount(id);
         return ResponseEntity.ok(getArticleDTO(byId));
     }
 

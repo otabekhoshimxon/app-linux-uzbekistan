@@ -44,7 +44,7 @@ public class AttachController {
         AttachDTO upload = attachService.upload(file);
         return ResponseEntity.ok(upload);
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/download/{id}")
     @ApiOperation(value = "Api for upload file" ,nickname = "Upload FILE API" ,notes = "upload file")
     @ApiResponses(value = {
